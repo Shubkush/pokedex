@@ -5,6 +5,7 @@ import ImgMediaCard from '../materalui_components/card.js'
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import PositionedMenu from '../materalui_components/positioned_menu';
+import Typography from '@mui/material/Typography';
 
 const PokemonList = () => {
     const [pokemons, setPokemon] = useState([]);
@@ -49,7 +50,9 @@ const PokemonList = () => {
                                 <Pagination page={page} count={10} color="primary" onChange={handlePangeChange} />
                                 <PositionedMenu onChange={(value) => setLimit(value)}
                                     data={{ title: "Page Size", items: [10, 20, 50] }} />
-                                <p>{limit}</p>
+                                <Typography variant="h6" gutterBottom component="div">
+                                    {limit}
+                                </Typography>
                             </Box>
                             <Grid container spacing={5}>
 

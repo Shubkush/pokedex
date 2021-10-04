@@ -26,7 +26,7 @@ export default function ImgMediaCard(props) {
                 <CardMedia
                     component="img"
                     alt={require("../assets/loading.gif")}
-                    height="330"
+                    height="auto"
                     image={image}
                 />
                 <CardContent>
