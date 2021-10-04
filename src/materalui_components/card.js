@@ -1,33 +1,57 @@
 import * as React from 'react';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 export default function ImgMediaCard(props) {
-    const [image, set_image] = useState();
-    const [is_loading, set_isloading] = useState(false)
+    const [image, setImage] = useState();
+    const [is_image_loading, setImageLoading] = useState(true);
+    const [is_loading, setloading] = useState(false)
+
+
+    let isRendered = useRef(false);
+
     useEffect(() => {
-        set_isloading(true)
+        isRendered = true;
+        setloading(true)
         const axios = require("axios");
         axios
             .get(props.data.url).then(response => {
-                set_image(response.data.sprites.other["official-artwork"].front_default)
-                set_isloading(false)
+                if (isRendered) {
+                    setImage(response.data.sprites.other["official-artwork"].front_default)
+                    setloading(false)
+                }
+                return null;
             })
+            .catch(err => console.log(err));
+        return () => {
+            isRendered = false;
+        };
     }, []);
+
     return (
-        is_loading ? (<img src={require("../assets/loading.gif")} />) : (
+        is_loading ? (<img src={require("../assets/2.gif")} height="200px" />) : (
             <Card sx={{ maxWidth: 345 }}>
+                <div style={{ display: is_image_loading ? "block" : "none" }} >
+                    <CircularProgress />
+
+                </div>
+
                 <CardMedia
                     component="img"
-                    alt={require("../assets/loading.gif")}
+                    onLoad={() => setImageLoading(false)}
+                    // alt="Can't load"
                     height="auto"
                     image={image}
+
+                    placeholder={require("../assets/1.gif")}
+
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
