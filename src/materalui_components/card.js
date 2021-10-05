@@ -24,7 +24,13 @@ export default function ImgMediaCard(props) {
         axios
             .get(props.data.url).then(response => {
                 if (isRendered) {
-                    setImage(response.data.sprites.other["official-artwork"].front_default)
+                    if (response.data.sprites.other["official-artwork"].front_default) {
+                        setImage(response.data.sprites.other["official-artwork"].front_default)
+                    }
+                    else {
+                        setImage('https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png')
+                    }
+
                     setloading(false)
                 }
                 return null;
@@ -49,9 +55,6 @@ export default function ImgMediaCard(props) {
                     // alt="Can't load"
                     height="auto"
                     image={image}
-
-                    placeholder={require("../assets/1.gif")}
-
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">

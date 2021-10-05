@@ -16,7 +16,9 @@ class PokemonStore {
     addPokemon(pokemon) {
         this.pokemons.push(pokemon)
     }
-
+    get getPokemons() {
+        return this.pokemons.filter(obj => obj.name.includes(this.search_params))
+    }
 }
 
 const pokemonStore = new PokemonStore()
