@@ -12,9 +12,7 @@ export default function PositionedMenu(props) {
     };
     const handleClose = (event, value) => {
         setAnchorEl(null);
-        console.log(props);
         props.onChange(event.currentTarget.value)
-        console.log(props.data.limit);
     };
 
     return (

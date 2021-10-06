@@ -29,7 +29,10 @@ const PokemonList = () => {
     useEffect(() => autorun(() => {
         setStart((page - 1) * page_size)
         setEnd(page * page_size)
-        setPaginationLimit(Math.floor(pokemonStore.getPokemons.length / page_size) + 1)
+        if (page_size) {
+            setPaginationLimit(Math.floor(pokemonStore.getPokemons.length / page_size) + 1)
+        }
+
 
         if (page > pagination_limit) {
             setPage(pagination_limit)
@@ -47,7 +50,7 @@ const PokemonList = () => {
                 minHeight="10vh"
             >
                 <Pagination page={page} count={pagination_limit} color="primary" onChange={handlePageChange} />
-                <PositionedMenu onChange={(value) => setPageSize(value)}
+                <PositionedMenu onChange={(value) => value ? setPageSize(value) : null}
                     data={{ title: "Page Size", items: [10, 20, 50] }} />
                 <Typography variant="h6" gutterBottom component="div">
                     {page_size}
@@ -67,7 +70,7 @@ const PokemonList = () => {
                 minHeight="10vh"
             >
                 <Pagination page={page} count={pagination_limit} color="primary" onChange={handlePageChange} />
-                <PositionedMenu onChange={(value) => setPageSize(value)}
+                <PositionedMenu onChange={(value) => value ? setPageSize(value) : null}
                     data={{ title: "Page Size", items: [10, 20, 50] }} />
                 <Typography variant="h6" gutterBottom component="div">
                     {page_size}
