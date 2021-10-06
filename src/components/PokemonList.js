@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { observer } from 'mobx-react';
 import pokedexStore from '../state/store'
 import { autorun } from 'mobx'
-import TypeFilter from './typeFilter'
+
 
 const PokemonList = () => {
     const [start, setStart] = useState(0);
@@ -47,13 +47,12 @@ const PokemonList = () => {
                 minHeight="10vh"
             >
                 <Pagination page={page} count={pagination_limit} color="primary" onChange={handlePageChange} />
-                <PositionedMenu onChange={(value) => setPageSize(value)}
-                    data={{ title: "Page Size", items: [10, 20, 50] }} />
+                <PositionedMenu onChange={(value) => value ? setPageSize(value) : null}
+                data={{ title: "Page Size", items: [10, 20, 50] }} />
                 <Typography variant="h6" gutterBottom component="div">
                     {page_size}
                 </Typography>
             </Box>
-            <TypeFilter />
             <Grid container spacing={5}>
                 {pokedexStore.getPokemons.slice(start, end).map((pokemon, idx) => (
                     <Grid item xs={4} key={idx + pokemon.name}>
@@ -68,7 +67,7 @@ const PokemonList = () => {
                 minHeight="10vh"
             >
                 <Pagination page={page} count={pagination_limit} color="primary" onChange={handlePageChange} />
-                <PositionedMenu onChange={(value) => setPageSize(value)}
+                <PositionedMenu onChange={(value) => value ? setPageSize(value) : null}
                     data={{ title: "Page Size", items: [10, 20, 50] }} />
                 <Typography variant="h6" gutterBottom component="div">
                     {page_size}
