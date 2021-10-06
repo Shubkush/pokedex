@@ -31,7 +31,7 @@ const PokemonList = () => {
         setStart((page - 1) * page_size)
         setEnd(page * page_size)
         if (page_size) {
-            setPaginationLimit(Math.floor(pokemonStore.getPokemons.length / page_size) + 1)
+            setPaginationLimit(Math.floor(pokedexStore.getPokemons.length / page_size) + 1)
         }
 
 
@@ -51,7 +51,7 @@ const PokemonList = () => {
             >
                 <Pagination page={page} count={pagination_limit} color="primary" onChange={handlePageChange} />
                 <PositionedMenu onChange={(value) => value ? setPageSize(value) : null}
-                data={{ title: "Page Size", items: [10, 20, 50] }} />
+                    data={{ title: "Page Size", items: [10, 20, 50] }} />
                 <Typography variant="h6" gutterBottom component="div">
                     {page_size}
                 </Typography>
