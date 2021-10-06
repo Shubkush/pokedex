@@ -6,8 +6,9 @@ import Box from '@mui/material/Box';
 import PositionedMenu from '../materalui_components/positioned_menu';
 import Typography from '@mui/material/Typography';
 import { observer } from 'mobx-react';
-import pokemonStore from '../state/store'
+import pokedexStore from '../state/store'
 import { autorun } from 'mobx'
+import TypeFilter from './typeFilter'
 
 const PokemonList = () => {
     const [start, setStart] = useState(0);
@@ -29,7 +30,7 @@ const PokemonList = () => {
     useEffect(() => autorun(() => {
         setStart((page - 1) * page_size)
         setEnd(page * page_size)
-        setPaginationLimit(Math.floor(pokemonStore.getPokemons.length / page_size) + 1)
+        setPaginationLimit(Math.floor(pokedexStore.getPokemons.length / page_size) + 1)
 
         if (page > pagination_limit) {
             setPage(pagination_limit)
@@ -39,7 +40,6 @@ const PokemonList = () => {
 
     return (
         <div>
-
             <Box
                 display="flex"
                 justifyContent="right"
@@ -53,8 +53,9 @@ const PokemonList = () => {
                     {page_size}
                 </Typography>
             </Box>
+            <TypeFilter />
             <Grid container spacing={5}>
-                {pokemonStore.getPokemons.slice(start, end).map((pokemon, idx) => (
+                {pokedexStore.getPokemons.slice(start, end).map((pokemon, idx) => (
                     <Grid item xs={4} key={idx + pokemon.name}>
                         <ImgMediaCard data={{ name: pokemon.name, url: pokemon.url }} />
                     </Grid>
