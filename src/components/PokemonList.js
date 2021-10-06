@@ -6,8 +6,9 @@ import Box from '@mui/material/Box';
 import PositionedMenu from '../materalui_components/positioned_menu';
 import Typography from '@mui/material/Typography';
 import { observer } from 'mobx-react';
-import pokemonStore from '../state/store'
+import pokedexStore from '../state/store'
 import { autorun } from 'mobx'
+
 
 const PokemonList = () => {
     const [start, setStart] = useState(0);
@@ -42,7 +43,6 @@ const PokemonList = () => {
 
     return (
         <div>
-
             <Box
                 display="flex"
                 justifyContent="right"
@@ -51,13 +51,13 @@ const PokemonList = () => {
             >
                 <Pagination page={page} count={pagination_limit} color="primary" onChange={handlePageChange} />
                 <PositionedMenu onChange={(value) => value ? setPageSize(value) : null}
-                    data={{ title: "Page Size", items: [10, 20, 50] }} />
+                data={{ title: "Page Size", items: [10, 20, 50] }} />
                 <Typography variant="h6" gutterBottom component="div">
                     {page_size}
                 </Typography>
             </Box>
             <Grid container spacing={5}>
-                {pokemonStore.getPokemons.slice(start, end).map((pokemon, idx) => (
+                {pokedexStore.getPokemons.slice(start, end).map((pokemon, idx) => (
                     <Grid item xs={4} key={idx + pokemon.name}>
                         <ImgMediaCard data={{ name: pokemon.name, url: pokemon.url }} />
                     </Grid>

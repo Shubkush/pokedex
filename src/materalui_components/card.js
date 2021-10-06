@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { useState, useEffect, useRef } from "react";
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
+import Button from '@mui/material/Button';
+import { observer } from 'mobx-react';
+import pokedexStore from '../state/store'
 
-
-export default function ImgMediaCard(props) {
+const ImgMediaCard = (props) => {
     const [image, setImage] = useState();
+    const [pokemon_types, setPokemonTypes] = useState([]);
     const [is_image_loading, setImageLoading] = useState(true);
     const [is_loading, setloading] = useState(false)
 
@@ -24,6 +26,7 @@ export default function ImgMediaCard(props) {
         axios
             .get(props.data.url).then(response => {
                 if (isRendered) {
+                    setPokemonTypes(response.data.types)
                     if (response.data.sprites.other["official-artwork"].front_default) {
                         setImage(response.data.sprites.other["official-artwork"].front_default)
                     }
@@ -65,9 +68,21 @@ export default function ImgMediaCard(props) {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Share</Button>
-                    <Button size="small">Learn More</Button>
+                    {
+                        pokemon_types.map((type) =>
+                            < Button key={type.type.name} variant="contained"
+                                size="small" sx={{
+                                    bgcolor: pokedexStore.typeColors[type.type.name],
+                                    "&.MuiButtonBase-root:hover": {
+                                        bgcolor: pokedexStore.typeColors[type.type.name]
+                                    }
+                                }}
+                            >{type.type.name}</Button>
+                        )
+                    }
                 </CardActions>
             </Card >
         ));
 }
+
+export default observer(ImgMediaCard)

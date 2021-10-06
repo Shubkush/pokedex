@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import pokemonStore from '../state/store'
+import pokedexStore from '../state/store'
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -81,8 +81,8 @@ export default function SearchAppBar() {
                         <StyledInputBase
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
-                            value={pokemonStore.filter}
-                            onChange={(event) => pokemonStore.setSearchParams(event.target.value)}
+                            value={pokedexStore.filter}
+                            onChange={(event) => pokedexStore.setSearchParams(event.target.value)}
                         />
                     </Search>
                 </Toolbar>
