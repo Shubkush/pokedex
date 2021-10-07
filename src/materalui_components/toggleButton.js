@@ -28,9 +28,13 @@ const StandaloneToggleButton = (props) => {
             size="small"
             onChange={handleChange}
             sx={{
-                bgcolor: 'red'[500],
                 "&.MuiButtonBase-root:hover": {
-                    bgcolor: 'red'[500]
+                    bgcolor: pokedexStore.typeColors[props.data.title],
+                    color: 'white'
+                },
+                "&.MuiToggleButton-root.Mui-selected": {
+                    bgcolor: pokedexStore.typeColors[props.data.title],
+                    color: 'white'
                 }
             }}
         >
