@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
-import ImgMediaCard from '../materalui_components/card.js'
+import ImgMediaCard from './card.js'
 import Box from '@mui/material/Box';
 import PositionedMenu from '../materalui_components/positioned_menu';
 import Typography from '@mui/material/Typography';
@@ -9,7 +9,7 @@ import { observer } from 'mobx-react';
 import pokedexStore from '../state/store'
 import { autorun } from 'mobx'
 import TypeFilter from './typeFilter'
-import { ColorLensOutlined } from "@mui/icons-material";
+
 
 const PokemonList = () => {
     const [start, setStart] = useState(0);
@@ -47,14 +47,14 @@ const PokemonList = () => {
                 alignItems="right"
                 minHeight="10vh"
             >
-                <Pagination page={page} count={pagination_limit} color="primary" onChange={handlePageChange} />
+                <Pagination page={page} sx={{ mb: 10 }} count={pagination_limit} color="primary" onChange={handlePageChange} />
                 <PositionedMenu onChange={(value) => setPageSize(value)}
                     data={{ title: "Page Size", items: [10, 20, 50] }} />
                 <Typography variant="h6" gutterBottom component="div">
                     {page_size}
                 </Typography>
             </Box>
-            <TypeFilter />
+            <TypeFilter style={{ marginBottom: '10px' }} />
             <Grid container spacing={5}>
                 {pokedexStore.getPokemons.slice(start, end).map((pokemon, idx) => (
                     <Grid item xs={4} key={idx + pokemon.name}>
@@ -67,9 +67,10 @@ const PokemonList = () => {
                 justifyContent="right"
                 alignItems="right"
                 minHeight="10vh"
+                sx={{ mt: 10 }} 
             >
                 <Pagination page={page} count={pagination_limit} color="primary" onChange={handlePageChange} />
-                <PositionedMenu onChange={(value) => setPageSize(value)}
+                <PositionedMenu  onChange={(value) => setPageSize(value)}
                     data={{ title: "Page Size", items: [10, 20, 50] }} />
                 <Typography variant="h6" gutterBottom component="div">
                     {page_size}

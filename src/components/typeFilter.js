@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -7,11 +7,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import pokedexStore from '../state/store'
 import Grid from '@mui/material/Grid';
 import StandaloneToggleButton from '../materalui_components/toggleButton'
-import { borderRadius } from "@mui/system";
+
 export default function TypeFilter() {
 
     return (
-        <div>
+        <div style={{ marginBottom: '100px' }}>
             <Accordion>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}

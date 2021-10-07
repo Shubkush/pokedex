@@ -1,5 +1,5 @@
 
-import { makeAutoObservable, observable } from "mobx";
+import { makeAutoObservable } from "mobx";
 
 class PokedexStore {
     typeColors = {
@@ -41,8 +41,12 @@ class PokedexStore {
         this.types = types
     }
 
+    setDetail = (pokemon) => {
+        this.pokemon_details = pokemon
+    }
 
-    set setSearchParams(filter) {
+
+    setSearchParams(filter) {
         this.search_params = filter;
     }
 
@@ -52,7 +56,7 @@ class PokedexStore {
 
     get getPokemons() {
         if (this.filters.length) {
-            return this.pokemons.filter(obj => obj.name.includes(this.search_params)).filter(obj => obj.pokemon_v2_pokemontypes.every(obj1 => this.filters.includes(obj1.pokemon_v2_type.name)))
+            return this.pokemons.filter(obj => obj.name.includes(this.search_params)).filter(obj => obj.pokemon_v2_pokemontypes.some(obj1 => this.filters.includes(obj1.pokemon_v2_type.name)))
         }
         return this.pokemons.filter(obj => obj.name.includes(this.search_params))
 
@@ -68,7 +72,6 @@ class PokedexStore {
     }
     removeFilter(filter) {
         this.filters.splice(this.filters.indexOf(filter), 1)
-        // console.log(this.filters)
     }
 }
 

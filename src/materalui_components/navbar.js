@@ -72,7 +72,7 @@ export default function SearchAppBar() {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                     >
-                        MUI
+                        Pokedex
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
@@ -82,7 +82,7 @@ export default function SearchAppBar() {
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
                             value={pokedexStore.filter}
-                            onChange={(event) => pokedexStore.setSearchParams(event.target.value)}
+                            onChange={(event) => pokedexStore.setSearchParams(event.target.value.toLowerCase())}
                         />
                     </Search>
                 </Toolbar>
