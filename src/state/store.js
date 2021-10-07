@@ -1,5 +1,5 @@
 
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, observable } from "mobx";
 
 class PokedexStore {
     typeColors = {
@@ -26,7 +26,8 @@ class PokedexStore {
     types = [];
     pokemons = [];
     search_params = '';
-    filters = []
+    filters = [];
+    pokemon_details = []
 
     constructor() {
         makeAutoObservable(this)
@@ -41,39 +42,62 @@ class PokedexStore {
     }
 
 
-    setSearchParams(filter) {
+    set setSearchParams(filter) {
         this.search_params = filter;
     }
 
-    addPokemon(pokemon) {
+    set addPokemon(pokemon) {
         this.pokemons.push(pokemon)
     }
 
     get getPokemons() {
+        if (this.filters.length) {
+            return this.pokemons.filter(obj => obj.name.includes(this.search_params)).filter(obj => obj.pokemon_v2_pokemontypes.every(obj1 => this.filters.includes(obj1.pokemon_v2_type.name)))
+        }
         return this.pokemons.filter(obj => obj.name.includes(this.search_params))
+
+
     }
 
-    addFilter(filter) {
-        const axios = require("axios");
-        axios
-            .get(`type/${filter}`).then(response => {
-                pokedexStore.loadPokemons(response.data.results)
-            })
-        this.filters.push(filter)
+    get getFilters() {
+        return this.filters
+    }
+
+    setFilter(filter) {
+        this.filters = this.filters.concat([filter])
     }
     removeFilter(filter) {
         this.filters.splice(this.filters.indexOf(filter), 1)
-        console.log(this.filters)
+        // console.log(this.filters)
     }
 }
 
 const pokedexStore = new PokedexStore()
 
-
-const axios = require("axios");
-axios
-    .get('pokemon?offset=0&limit=1118').then(response => {
-        pokedexStore.loadPokemons(response.data.results)
-    })
+const axios = require("axios")
+axios({
+    url: 'https://beta.pokeapi.co/graphql/v1beta',
+    method: 'post',
+    data: {
+        query: `
+        query samplePokeAPIquery {
+            pokemon_v2_pokemon_aggregate {
+              nodes {
+                name
+                pokemon_v2_pokemontypes {
+                  pokemon_v2_type {
+                    name
+                    id
+                  }
+                }
+                id
+              }
+            }
+          }
+      `
+    }
+}).then((response) => {
+    pokedexStore.loadPokemons(response.data.data.pokemon_v2_pokemon_aggregate.nodes)
+});
 
 export default pokedexStore

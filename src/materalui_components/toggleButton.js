@@ -10,7 +10,8 @@ const StandaloneToggleButton = (props) => {
     const handleChange = (event) => {
         setSelected(!selected);
         if (!selected) {
-            pokedexStore.addFilter(event.target.value);
+            pokedexStore.setFilter(event.target.value);
+
         }
         else {
             pokedexStore.removeFilter(event.target.value);

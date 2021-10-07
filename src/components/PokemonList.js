@@ -9,6 +9,7 @@ import { observer } from 'mobx-react';
 import pokedexStore from '../state/store'
 import { autorun } from 'mobx'
 import TypeFilter from './typeFilter'
+import { ColorLensOutlined } from "@mui/icons-material";
 
 const PokemonList = () => {
     const [start, setStart] = useState(0);
@@ -57,7 +58,7 @@ const PokemonList = () => {
             <Grid container spacing={5}>
                 {pokedexStore.getPokemons.slice(start, end).map((pokemon, idx) => (
                     <Grid item xs={4} key={idx + pokemon.name}>
-                        <ImgMediaCard data={{ name: pokemon.name, url: pokemon.url }} />
+                        <ImgMediaCard data={{ name: pokemon.name }} />
                     </Grid>
                 ))}
             </Grid>
