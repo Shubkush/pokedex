@@ -2,7 +2,7 @@ import * as React from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import { observer } from 'mobx-react';
 import pokedexStore from '../state/store'
-
+import { useEffect } from "react";
 
 const StandaloneToggleButton = (props) => {
     const [selected, setSelected] = React.useState(false);
@@ -16,8 +16,14 @@ const StandaloneToggleButton = (props) => {
         else {
             pokedexStore.removeFilter(event.target.value);
         }
-
     }
+
+    useEffect(() => {
+        if (!pokedexStore.filters.includes(props.data.title)) {
+            setSelected(false)
+        }
+
+    }, [pokedexStore.filters])
 
     return (
 

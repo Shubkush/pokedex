@@ -7,8 +7,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import pokedexStore from '../state/store'
 import Grid from '@mui/material/Grid';
 import StandaloneToggleButton from '../materalui_components/toggleButton'
+import { observer } from 'mobx-react';
 
-export default function TypeFilter() {
+const TypeFilter = () => {
 
     return (
         <div style={{ marginBottom: '100px' }}>
@@ -37,3 +38,5 @@ export default function TypeFilter() {
         </div>
     );
 }
+
+export default observer(TypeFilter)

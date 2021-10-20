@@ -50,6 +50,12 @@ class PokedexStore {
         this.search_params = filter;
     }
 
+
+    clearFilters = () => {
+        this.search_params = '';
+        this.filters = [];
+    }
+
     set addPokemon(pokemon) {
         this.pokemons.push(pokemon)
     }
@@ -62,6 +68,7 @@ class PokedexStore {
 
 
     }
+
 
     get getFilters() {
         return this.filters

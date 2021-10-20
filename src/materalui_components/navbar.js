@@ -6,10 +6,11 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
+import Button from '@mui/material/Button';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import pokedexStore from '../state/store'
-
+import { observer } from 'mobx-react';
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -52,7 +53,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function SearchAppBar() {
+const SearchAppBar = () => {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -72,7 +73,13 @@ export default function SearchAppBar() {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                     >
-                        Pokedex
+                        <Button variant="text" sx={{
+                            "&.MuiButtonBase-root": {
+                                color: 'white',
+                                fontSize: '20px',
+                                textTransform: 'none'
+                            }
+                        }} onClick={pokedexStore.clearFilters}> Pokedex</Button>
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
@@ -81,12 +88,14 @@ export default function SearchAppBar() {
                         <StyledInputBase
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
-                            value={pokedexStore.filter}
+                            value={pokedexStore.search_params}
                             onChange={(event) => pokedexStore.setSearchParams(event.target.value.toLowerCase())}
                         />
                     </Search>
                 </Toolbar>
             </AppBar>
-        </Box>
-    );
+        </Box >
+    )
 }
+
+export default observer(SearchAppBar)
