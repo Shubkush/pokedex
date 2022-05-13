@@ -3,7 +3,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 Live Demo
-https://heuristic-noyce-9e4df5.netlify.app/
+https://pokedex-pokemon-finder.netlify.app/
 
 ## Available Scripts
 
